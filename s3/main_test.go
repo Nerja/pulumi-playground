@@ -7,7 +7,7 @@ import (
 	"path"
 	"testing"
 
-	"github.com/pulumi/pulumi/pkg/v2/testing/integration"
+	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/stretchr/testify/assert"
@@ -43,6 +43,12 @@ func TestInfrastructureIntegration(t *testing.T) {
 			resp, err := http.Get(url)
 			assert.NoError(t, err)
 			assert.Equal(t, 403, resp.StatusCode)
+
+			for _, resource := range stack.Deployment.Resources {
+				if resource.Type == "aws:s3/bucket:Bucket" {
+					assert.NotNil(t, resource.Outputs["serverSideEncryptionConfiguration"])
+				}
+			}
 		},
 		Config: map[string]string{
 			"aws:region": "us-east-1",
