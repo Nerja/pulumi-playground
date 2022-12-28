@@ -7,12 +7,7 @@ import (
 
 func createInfra(ctx *pulumi.Context) (*s3.Bucket, error) {
 	// Create an S3 bucket
-	bucket, err := s3.NewBucket(ctx, "my-bucket", &s3.BucketArgs{
-		Tags: pulumi.StringMap{
-			"Name":    pulumi.String("my-bucket-diff"),
-			"SomeTag": pulumi.String("somevalue"),
-		},
-	})
+	bucket, err := s3.NewBucket(ctx, "my-bucket", &s3.BucketArgs{})
 
 	if err != nil {
 		return nil, err
