@@ -8,6 +8,7 @@ import (
 func createInfra(ctx *pulumi.Context) (*s3.Bucket, error) {
 	// Create an S3 bucket
 	bucket, err := s3.NewBucket(ctx, "my-bucket", &s3.BucketArgs{
+		Acl: pulumi.String("public-read"),
 		ServerSideEncryptionConfiguration: s3.BucketServerSideEncryptionConfigurationArgs{
 			Rule: s3.BucketServerSideEncryptionConfigurationRuleArgs{
 				ApplyServerSideEncryptionByDefault: s3.BucketServerSideEncryptionConfigurationRuleApplyServerSideEncryptionByDefaultArgs{
