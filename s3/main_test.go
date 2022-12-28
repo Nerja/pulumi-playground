@@ -46,7 +46,9 @@ func TestInfrastructureIntegration(t *testing.T) {
 
 			for _, resource := range stack.Deployment.Resources {
 				if resource.Type == "aws:s3/bucket:Bucket" {
-					assert.NotNil(t, resource.Outputs["serverSideEncryptionConfiguration"])
+					versioning, ok := resource.Outputs["versioning"].(map[string]interface{})
+					assert.True(t, ok)
+					assert.Equal(t, true, versioning["enabled"])
 				}
 			}
 		},
