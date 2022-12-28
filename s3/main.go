@@ -15,6 +15,9 @@ func createInfra(ctx *pulumi.Context) (*s3.Bucket, error) {
 				},
 			},
 		},
+		Versioning: s3.BucketVersioningArgs{
+			Enabled: pulumi.BoolPtr(true),
+		},
 	})
 
 	if err != nil {
